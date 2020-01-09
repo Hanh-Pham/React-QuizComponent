@@ -4,36 +4,38 @@ import QuizQuestionButton from './QuizQuestionButton';
 
 class QuizQuestion extends Component {
   constructor(props) {
-      super(props);
-      console.log(props)
+    super(props);
+    console.log(props);
+  }
+    handleClick(buttonText) {
+        if (buttonText === this.props.quiz_question.answer)
+          this.props.showNextQuestionHandler();
   }
 
-    render() {
-               const items = [];
-
-               for (const [
-                 index,
-                 value
-               ] of this.props.quiz_question.answer_options.entries()) {
-                 items.push(<li key={index}>{value}</li>);
-               }
-               return (
-                 <main>
-                   <section>
-                     <p>{this.props.quiz_question.instruction_text}</p>
-                   </section>
-                   <section className="buttons">
-                     <ul>
-                       <QuizQuestionButton
-                         button_text={
-                           this.props.quiz_question.answer_options[0]
-                         }
-                       />
-                     </ul>
-                   </section>
-                 </main>
-               );
-             }
+  render() {
+    return (
+      <main>
+        <section>
+          <p>{this.props.quiz_question.instruction_text}</p>
+        </section>
+        <section className="buttons">
+          <ul>
+            {this.props.quiz_question.answer_options.map(
+              (answer_option, index) => {
+                return (
+                  <QuizQuestionButton
+                    clickHandler={this.handleClick.bind(this)}
+                    key={index}
+                    button_text={answer_option}
+                  />
+                );
+              }
+            )}
+          </ul>
+        </section>
+      </main>
+    );
+  }
 }
 
 QuizQuestion.propTypes = {
