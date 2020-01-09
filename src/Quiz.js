@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import QuizQuestion from './QuizQuestion.js';
+
 let quizData = require('./quiz_data.json');
 
 class Quiz extends Component {
@@ -11,14 +13,11 @@ class Quiz extends Component {
     }
     
     render() {
-        console.log(quizData)
-        let question = quizData.quiz_questions.find(x=>x.id===this.state.quiz_position).instruction_text
+        
         return (
-            <div>
-                <div className='QuizQuestion'>
-                    {question}
-               </div>
-            </div>
+          <div>
+            <QuizQuestion quiz_question={quizData.quiz_questions.find(x=>x.id===this.state.quiz_position)}/>
+          </div>
         );
     }
 }
